@@ -39,6 +39,13 @@ def pearson_1d(x, y):
     # return a / (sqrt(b) * sqrt(c))
     # +++your code here+++
     # return
+    mc_x = (x - np.mean(x)) / np.std(x)
+    mc_y = (y - np.mean(y)) / np.std(y)
+    a = np.sum(mc_x * mc_y)
+    b = np.sum( mc_x * mc_x)
+    c = np.sum(mc_y * mc_y)
+    pc = a / (np.sqrt(b) * np.sqrt(c))
+    return pc
 
 
 def pearson_2d(x, Y):
