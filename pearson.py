@@ -31,14 +31,12 @@ def pearson_1d(x, y):
     r_xy : scalar
         Pearson product-moment correlation of vectors `x` and `y`.
     """
-    # Mean-center x -> mc_x
-    # Mean-center y -> mc_y
-    # a : Get sum of products of mc_x, mc_y
-    # b : Get sum of products of mc_x on mc_x
-    # c : Get sum of products of mc_y on mc_y
-    # return a / (sqrt(b) * sqrt(c))
-    # +++your code here+++
-    # return
+    mc_x,mc_y = x-x.mean(), y-y.mean()
+    a = np.sum(mc_x*mc_y)
+    b = np.sum(mc_x*mc_x)
+    c = np.sum(mc_y*mc_y)
+    return a / (np.sqrt(b)*np.sqrt(c))
+
 
 
 def pearson_2d(x, Y):
@@ -57,11 +55,9 @@ def pearson_2d(x, Y):
         Pearson product-moment correlation of vectors `x` and the columns of
         `Y`, with one correlation value for every column of `Y`.
     """
-    # Mean-center x -> mc_x
-    # Mean-center every column of Y -> mc_Y
-    # a : Get sum of products of mc_x and every column of mc_Y
-    # b : Get sum of products of mc_x on mc_x
-    # c : Get sum of products of every column of mc_Y[:, i] on itself
-    # return a / (sqrt(b) * sqrt(c))
-    # +++your code here+++
-    # return
+    mc_x = x-x.mean()   # (12,)
+    mc_y = Y-Y.mean(axis=0)[None,:]     # (22,12) = (22,12)-(1,12) 
+    a = np.sum(mc_x[:,None]*mc_y,axis=0)    #  (12,)  << sum on axis 0 << ( (22,12)  << (1,12)*(22,12) )
+    b = np.sum(mc_x*mc_x)   #   rank 0 << ()
+    c = (mc_y*mc_y).sum(axis=0)     #   (12,)  <<  sum on axis 0 << (22,12)*(22,12)
+    return a / (np.sqrt(b)*np.sqrt(c))
