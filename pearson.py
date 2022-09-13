@@ -32,14 +32,17 @@ def pearson_1d(x, y):
         Pearson product-moment correlation of vectors `x` and `y`.
     """
     # Mean-center x -> mc_x
+    mc_x = x - np.mean(x)
     # Mean-center y -> mc_y
+    mc_y = y - np.mean(y)
     # a : Get sum of products of mc_x, mc_y
+    a = np.sum(mc_x*mc_y)
     # b : Get sum of products of mc_x on mc_x
+    b = np.sum(mc_x*mc_x)
     # c : Get sum of products of mc_y on mc_y
+    c = np.sum(mc_y*mc_y)
     # return a / (sqrt(b) * sqrt(c))
-    # +++your code here+++
-    # return
-
+    return a / (np.sqrt(b) * np.sqrt(c))
 
 def pearson_2d(x, Y):
     """ Pearson product-moment correlation of vectors `x` and array `Y`
@@ -58,10 +61,15 @@ def pearson_2d(x, Y):
         `Y`, with one correlation value for every column of `Y`.
     """
     # Mean-center x -> mc_x
+    mc_x = x - np.mean(x)
     # Mean-center every column of Y -> mc_Y
+    mc_Y = Y - np.mean(Y,axis=0)
     # a : Get sum of products of mc_x and every column of mc_Y
+    a = np.sum((mc_x * mc_Y.T).T,axis=0)
     # b : Get sum of products of mc_x on mc_x
+    b = np.sum(mc_x * mc_x)
     # c : Get sum of products of every column of mc_Y[:, i] on itself
+    c = np.sum(mc_Y * mc_Y,axis=0)
     # return a / (sqrt(b) * sqrt(c))
-    # +++your code here+++
-    # return
+    return a/(np.sqrt(b) * np.sqrt(c))
+
